@@ -18,7 +18,6 @@ var multer = require('multer');
      },
      filename: function(req, file, callback) {
          callback(null, file.fieldname + "-" + Date.now() + "." + path.extname(file.originalname));
-         
      }
  });
 
