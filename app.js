@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-//const SERVER_PORT = process.env.PORT || 3333;
+const SERVER_PORT = process.env.PORT || 3333;
 
 
 app.use(function  (req,  res,  next) {
@@ -26,7 +26,6 @@ app.use(bodyParser.json());
 
 app.use('/api',require('./route/api'))
 
-app.listen(2000, function(){
-	console.log("Server started at 2000")
+app.listen(SERVER_PORT, function(){
+	console.log("Server started at 3333")
 })
-
