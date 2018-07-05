@@ -18,6 +18,7 @@ var multer = require('multer');
      },
      filename: function(req, file, callback) {
          callback(null, file.fieldname + "-" + Date.now() + "." + path.extname(file.originalname));
+         
      }
  });
 
@@ -142,6 +143,7 @@ route.post('/searchByName',(req,res,next)=>{
 
 //to upload a image, it generate the path
 route.post('/upload',upload.single('photo'), function (req, res) {
+	console.log('in upload', req.file.path);
     if (!req.file) {
         console.log("No file received");
         return res.send({
