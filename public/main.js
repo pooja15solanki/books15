@@ -75,7 +75,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var URL = 'http://localhost:2000/api/books/upload';
+var URL = 'api/books/upload';
 var AddBookComponent = /** @class */ (function () {
     function AddBookComponent(dataService, router) {
         this.dataService = dataService;
@@ -89,7 +89,7 @@ var AddBookComponent = /** @class */ (function () {
     };
     AddBookComponent.prototype.add = function () {
         var _this = this;
-        this.book.image = "uploads\photo-1530799259343..JPG";
+        this.book.image = this.path;
         var book = {
             name: this.book.name,
             authorName: this.book.authorName,
