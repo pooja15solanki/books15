@@ -89,7 +89,7 @@ var AddBookComponent = /** @class */ (function () {
     };
     AddBookComponent.prototype.add = function () {
         var _this = this;
-        this.book.image = this.path;
+        this.book.image = "uploads\photo-1530799259343..JPG";
         var book = {
             name: this.book.name,
             authorName: this.book.authorName,
@@ -1176,7 +1176,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-nav></app-nav>\n<form novalidate [formGroup]=\"form\" style=\"margin: 5% 30% 10% 30%\" (ngSubmit)=\"signIn(frm)\">\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\" class=\"form-control\" id=\"email\" ngModel name=\"email\" required=\"true\" placeholder=\"Enter email\">\n       <div *ngIf=\"form.get('email').touched && form.get('email').invalid \">\n            <p style=\"color: red\">*Email should be valid</p>\n        </div>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\" class=\"form-control\" id=\"password\" ngModel name=\"password\" placeholder=\"Password\">\n      <div *ngIf=\"form.get('password').touched && form.get('password').invalid \">\n            <p style=\"color: red\">*Password Does't Contain Spaces</p>\n            </div>\n    </div>\n    <button type=\"submit\" class=\"btn btn-primary\" [disabled]=\"frm.invalid\">Submit</button>\n \t<br>\n    <div class=\"alert alert-dismissible alert-danger\" id=\"error\" *ngIf='errorStatus' style=\"margin-top: 10%;\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\n  <strong>Ooops!</strong> Email or password incorrect and try submitting again.\n</div>\n\n</form>\n\n"
+module.exports = "<app-nav></app-nav>\n<form #frm=\"ngForm\" style=\"margin: 5% 30% 10% 30%\" (ngSubmit)=\"signIn(frm)\">\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\" class=\"form-control\" id=\"email\" ngModel name=\"email\" required=\"true\" placeholder=\"Enter email\">\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\" class=\"form-control\" id=\"password\" ngModel name=\"password\" placeholder=\"Password\" required=\"true\">\n    </div>\n    <button type=\"submit\" class=\"btn btn-primary\" [disabled]=\"frm.invalid\">Submit</button>\n \t<br>\n    <div class=\"alert alert-dismissible alert-danger\" id=\"error\" *ngIf='errorStatus' style=\"margin-top: 10%;\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\n  <strong>Ooops!</strong> Email or password incorrect and try submitting again.\n</div>\n\n</form>\n\n"
 
 /***/ }),
 
@@ -1192,9 +1192,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignInComponent", function() { return SignInComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1204,7 +1203,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -1235,10 +1233,6 @@ var SignInComponent = /** @class */ (function () {
         });
     };
     SignInComponent.prototype.ngOnInit = function () {
-        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email]),
-            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('[a-zA-Z0-9@!#$%&*]*')])
-        });
     };
     SignInComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1246,7 +1240,7 @@ var SignInComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./sign-in.component.html */ "./src/app/sign-in/sign-in.component.html"),
             styles: [__webpack_require__(/*! ./sign-in.component.css */ "./src/app/sign-in/sign-in.component.css")]
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _app_component__WEBPACK_IMPORTED_MODULE_1__["AppComponent"]])
+        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _app_component__WEBPACK_IMPORTED_MODULE_1__["AppComponent"]])
     ], SignInComponent);
     return SignInComponent;
 }());
