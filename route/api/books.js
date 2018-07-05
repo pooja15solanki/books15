@@ -168,7 +168,6 @@ route.post('/',(req,res) =>{
 	}).then((book)=>{
 		res.status(200).send(book)
 	}).catch((error)=>{
-		console.log('in error at node')
 		res.status(500).send({
 			error:console.log(error)
 		})

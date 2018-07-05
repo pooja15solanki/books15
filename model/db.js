@@ -1,15 +1,16 @@
+
 const Sequelize = require('sequelize')
 const op = Sequelize.Op
-const db = new Sequelize('mytestdb1', '','',{
+const db = new Sequelize('mytestdb1', 'myuser1','mypass',{
 	host: '',
-	dialect:'sqlite',
+	dialect:'mysql',
 	operatorsAliases : op,
 	pool: {
 		min :0,
 		max:5,
 		idle:5000,
 	 },
-	 "storage":"./mytestdb1.sqlite"
+	 //"storage":"./mytestdb1.sqlite"
 });
 //user table
 const User = db.define('users',{
