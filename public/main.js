@@ -84,6 +84,7 @@ var AddBookComponent = /** @class */ (function () {
         this.uploader = new ng2_file_upload_ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__["FileUploader"]({ url: URL, itemAlias: 'photo' });
     }
     AddBookComponent.prototype.addBook = function (form) {
+        console.log(form.value);
         this.uploader.uploadAll();
         this.book = form.value;
     };
