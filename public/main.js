@@ -571,48 +571,48 @@ var DataService = /** @class */ (function () {
         this.cartId = { Id: "" };
     }
     DataService.prototype.addUser = function (user) {
-        return this.http.post('http://localhost:3333/api/users', user, httpOptions);
+        return this.http.post('api/users', user, httpOptions);
     };
     DataService.prototype.signIn = function (user) {
-        return this.http.post('http://localhost:3333/api/users/signIn', user, httpOptions);
+        return this.http.post('api/users/signIn', user, httpOptions);
     };
     DataService.prototype.addBook = function (book) {
-        return this.http.post('http://localhost:3333/api/books', book, httpOptions);
+        return this.http.post('api/books', book, httpOptions);
     };
     DataService.prototype.getAllBooks = function () {
-        return this.http.get('http://localhost:3333/api/books');
+        return this.http.get('api/books');
     };
     DataService.prototype.getAllFilterByLowToHigh = function () {
-        return this.http.get('http://localhost:3333/api/books/filterLowToHigh');
+        return this.http.get('api/books/filterLowToHigh');
     };
     DataService.prototype.getAllFilterByHighToLow = function () {
-        return this.http.get('http://localhost:3333/api/books/filterHighToLow');
+        return this.http.get('api/books/filterHighToLow');
     };
     DataService.prototype.getAllFilterByCondition = function (condition) {
-        return this.http.post('http://localhost:3333/api/books/filterCondition', condition, httpOptions);
+        return this.http.post('api/books/filterCondition', condition, httpOptions);
     };
     DataService.prototype.getAllSearchByName = function (name) {
         console.log(name);
-        return this.http.post('http://localhost:3333/api/books/searchByName', name, httpOptions);
+        return this.http.post('api/books/searchByName', name, httpOptions);
     };
     DataService.prototype.getBook = function (id) {
-        return this.http.post('http://localhost:3333/api/books/book', id, httpOptions);
+        return this.http.post('api/books/book', id, httpOptions);
     };
     DataService.prototype.sentMessage = function (message) {
         console.log(message);
-        return this.http.post('http://localhost:3333/api/message', message, httpOptions);
+        return this.http.post('api/message', message, httpOptions);
     };
     DataService.prototype.addWishList = function (wishList) {
-        return this.http.post('http://localhost:3333/api/carts', wishList, httpOptions);
+        return this.http.post('api/carts', wishList, httpOptions);
     };
     DataService.prototype.getUserCart = function (id) {
-        return this.http.post('http://localhost:3333/api/carts/getCart', id, httpOptions);
+        return this.http.post('api/carts/getCart', id, httpOptions);
     };
     DataService.prototype.getUserBook = function (id) {
-        return this.http.post('http://localhost:3333/api/books/userBooks', id, httpOptions);
+        return this.http.post('api/books/userBooks', id, httpOptions);
     };
     DataService.prototype.deleteCartItem = function (bookId) {
-        var url = 'http://localhost:3333/api/carts/' + ("" + bookId);
+        var url = 'api/carts/' + ("" + bookId);
         return this.http.delete(url);
     };
     DataService = __decorate([
