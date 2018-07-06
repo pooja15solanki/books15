@@ -174,4 +174,15 @@ route.post('/',(req,res) =>{
 	})
 })
 
+route.delete('/:id', (req,res) =>{
+
+Book.destroy({
+    where: {
+      bId: req.params.id
+    }
+  }).then((tasks) => {
+  res.status(200).send("0") 
+})
+});
+
 module.exports = route;

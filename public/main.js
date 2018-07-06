@@ -572,48 +572,52 @@ var DataService = /** @class */ (function () {
         this.cartId = { Id: "" };
     }
     DataService.prototype.addUser = function (user) {
-        return this.http.post('api/users', user, httpOptions);
+        return this.http.post('http://localhost:3333/api/users', user, httpOptions);
     };
     DataService.prototype.signIn = function (user) {
-        return this.http.post('api/users/signIn', user, httpOptions);
+        return this.http.post('http://localhost:3333/api/users/signIn', user, httpOptions);
     };
     DataService.prototype.addBook = function (book) {
-        return this.http.post('api/books', book, httpOptions);
+        return this.http.post('http://localhost:3333/api/books', book, httpOptions);
     };
     DataService.prototype.getAllBooks = function () {
-        return this.http.get('api/books');
+        return this.http.get('http://localhost:3333/api/books');
     };
     DataService.prototype.getAllFilterByLowToHigh = function () {
-        return this.http.get('api/books/filterLowToHigh');
+        return this.http.get('http://localhost:3333/api/books/filterLowToHigh');
     };
     DataService.prototype.getAllFilterByHighToLow = function () {
-        return this.http.get('api/books/filterHighToLow');
+        return this.http.get('http://localhost:3333/api/books/filterHighToLow');
     };
     DataService.prototype.getAllFilterByCondition = function (condition) {
-        return this.http.post('api/books/filterCondition', condition, httpOptions);
+        return this.http.post('http://localhost:3333/api/books/filterCondition', condition, httpOptions);
     };
     DataService.prototype.getAllSearchByName = function (name) {
         console.log(name);
-        return this.http.post('api/books/searchByName', name, httpOptions);
+        return this.http.post('http://localhost:3333/api/books/searchByName', name, httpOptions);
     };
     DataService.prototype.getBook = function (id) {
-        return this.http.post('api/books/book', id, httpOptions);
+        return this.http.post('http://localhost:3333/api/books/book', id, httpOptions);
     };
     DataService.prototype.sentMessage = function (message) {
         console.log(message);
-        return this.http.post('api/message', message, httpOptions);
+        return this.http.post('http://localhost:3333/api/message', message, httpOptions);
     };
     DataService.prototype.addWishList = function (wishList) {
-        return this.http.post('api/carts', wishList, httpOptions);
+        return this.http.post('http://localhost:3333/api/carts', wishList, httpOptions);
     };
     DataService.prototype.getUserCart = function (id) {
-        return this.http.post('api/carts/getCart', id, httpOptions);
+        return this.http.post('http://localhost:3333/api/carts/getCart', id, httpOptions);
     };
     DataService.prototype.getUserBook = function (id) {
-        return this.http.post('api/books/userBooks', id, httpOptions);
+        return this.http.post('http://localhost:3333/api/books/userBooks', id, httpOptions);
     };
     DataService.prototype.deleteCartItem = function (bookId) {
-        var url = 'api/carts/' + ("" + bookId);
+        var url = 'http://localhost:3333/api/carts/' + ("" + bookId);
+        return this.http.delete(url);
+    };
+    DataService.prototype.deleteBook = function (bookId) {
+        var url = 'http://localhost:3333/api/books/' + ("" + bookId);
         return this.http.delete(url);
     };
     DataService = __decorate([
@@ -911,7 +915,7 @@ module.exports = ".btnBook{\r\n\tmargin-left: 10;\r\n}"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-nav></app-nav>\n<div class=\"row\">\n<button type=\"button\" routerLink='/addListing' class=\" btn btn-primary \" style=\"margin-top:1%;float: right;\">Click To Add Your Books</button>\n</div>\n<div align=\"center\">\n<h2>\n <p class=\"text-justify text-center\"> Books Listed By You</p>\n</h2>\n</div>\n<div class=\"container-fluid\" style=\"margin-top: 2%\">\n\t\n\t\t<div class=\"row\">\n\n\t\t<div class=\"col-lg-3 col-md-3 col-sm-6\" *ngFor=\"let book of books; let i = index\">\n\t\t\t<div class=\"card mb-3\">\n\t\t\t\t<h3 class=\"card-header\">{{ book.name.toUpperCase() }}</h3>\n\t\t\t\t<img routerLink='/listings/{{book.bId}}' style=\"margin:5px;height: 150px; width: 96%; display: block;\" src=\"{{ book.image }}\">\n\t\t\t\t<ul class=\"list-group list-group-flush\">\n\t\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\t\t<table>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t    \t<td>Book Id:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.bId }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Author:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.authorName.toUpperCase() }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Condition:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.condition }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td>Price:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.price }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t\n\t\t\t\t\t\t  \n\t\t\t\t<div class=\"card-footer text-muted\">\n\t\t\t\t\tPosted On:- <span style=\"float: right;\">{{ book.createdAt.substring(8,10) }} {{ book.createdAt.substring(4,8) }} {{ book.createdAt.substring(0,4) }}</span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t\n\t\t<div class=\"col-lg-12\" style=\"align-content: center;\">\t\n\t\t\t<div class=\"alert alert-dismissible alert-light\" *ngIf=\"numberOfBooks == 0\">\n\t\t\t\t  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\n\t\t\t\t  <strong>Currently!</strong> There is no books in the database <a routerLink=\"/signIn\" class=\"alert-link\"> Sign In </a> to add books.\n\t\t\t</div>\n\t\t</div>\n\n\t\t</div>\n\n\n</div>"
+module.exports = "<app-nav></app-nav>\n<div class=\"row\">\n<button type=\"button\" routerLink='/addListing' class=\" btn btn-primary \" style=\"margin-top:1%;float: right;\">Click To Add Your Books</button>\n</div>\n<div align=\"center\">\n<h2>\n <p class=\"text-justify text-center\"> Books Listed By You</p>\n</h2>\n</div>\n<div class=\"container-fluid\" style=\"margin-top: 2%\">\n\t\n\t\t<div class=\"row\">\n\n\t\t<div class=\"col-lg-3 col-md-3 col-sm-6\" *ngFor=\"let book of books; let i = index\">\n\t\t\t<div class=\"card mb-3\">\n\t\t\t\t<h3 class=\"card-header\">{{ book.name.toUpperCase() }}</h3>\n\t\t\t\t<img routerLink='/listings/{{book.bId}}' style=\"margin:5px;height: 150px; width: 96%; display: block;\" src=\"{{ book.image }}\">\n\t\t\t\t<ul class=\"list-group list-group-flush\">\n\t\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\t\t<table>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t    \t<td>Book Id:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.bId }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Author:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.authorName.toUpperCase() }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Condition:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.condition }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td>Price:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.price }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t<div class=\"card-body\">\n\t\t\t\t\t<button type=\"button\" (click)=\"removeBook($event)\" id=\"{{book.bId}}\" class=\"btn btn-primary\">Remove Book</button>\n\t\t\t\t</div>\n\t\t\t\t\t\t  \n\t\t\t\t<div class=\"card-footer text-muted\">\n\t\t\t\t\tPosted On:- <span style=\"float: right;\">{{ book.createdAt.substring(8,10) }} {{ book.createdAt.substring(4,8) }} {{ book.createdAt.substring(0,4) }}</span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t\n\t\t<div class=\"col-lg-12\" style=\"align-content: center;\">\t\n\t\t\t<div class=\"alert alert-dismissible alert-light\" *ngIf=\"numberOfBooks == 0\">\n\t\t\t\t  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\n\t\t\t\t  <strong>Currently!</strong> There is no books in the database <a routerLink=\"/signIn\" class=\"alert-link\"> Sign In </a> to add books.\n\t\t\t</div>\n\t\t</div>\n\n\t\t</div>\n\n\n</div>"
 
 /***/ }),
 
@@ -946,6 +950,18 @@ var ProfileComponent = /** @class */ (function () {
         this.dataService = dataService;
         this.userId = { Id: "" };
     }
+    ProfileComponent.prototype.removeBook = function (event) {
+        var _this = this;
+        var bookId = event.target.attributes.id.value;
+        if (localStorage.getItem('loggedIn')) {
+            this.dataService.deleteBook(bookId).subscribe(function (item) {
+                _this.userId.Id = JSON.parse(localStorage.getItem('user')).uId;
+                _this.dataService.getUserBook(_this.userId).subscribe(function (books) {
+                    _this.books = books;
+                });
+            });
+        }
+    };
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
         if (!localStorage.getItem('loggedIn')) {
