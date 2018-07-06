@@ -126,6 +126,7 @@ var AddBookComponent = /** @class */ (function () {
         this.uploader.onAfterAddingFile = function (file) { file.withCredentials = false; };
         this.uploader.onCompleteItem = function (item, response, status, header) {
             _this.path = response;
+            console.log(_this.path);
             _this.path = _this.path.substring(7, _this.path.length);
             _this.add();
         };
