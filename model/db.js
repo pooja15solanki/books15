@@ -10,7 +10,7 @@ const db = new Sequelize('mytestdb1', '','',{
 		max:5,
 		idle:5000,
 	 },
-	 "storage":"./mytestdb.sqlite"
+	 "storage":"./mybookdb.sqlite"
 });
 //user table
 const User = db.define('users',{
