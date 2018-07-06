@@ -87,15 +87,13 @@ var AddBookComponent = /** @class */ (function () {
         console.log(form.value);
         this.uploader.uploadAll();
         this.book = form.value;
-        if (this.bookStatus)
-            form.reset();
     };
     AddBookComponent.prototype.add = function () {
         var _this = this;
         this.book.image = this.path;
         var book = {
-            name: this.book.name,
-            authorName: this.book.authorName,
+            name: this.book.name.toLowerCase(),
+            authorName: this.book.authorName.toLowerCase(),
             price: this.book.price,
             image: this.path,
             condition: this.book.condition,
@@ -104,6 +102,11 @@ var AddBookComponent = /** @class */ (function () {
         this.dataService.addBook(book).subscribe(function (book) {
             if (book != null) {
                 _this.bookStatus = true;
+                document.getElementById('name').value = "";
+                document.getElementById('authorName').value = "";
+                document.getElementById('price').value = "";
+                document.getElementById('photo').value = "";
+                document.getElementById('condition').value = "";
             }
             else {
                 _this.errorStatus = true;
@@ -123,7 +126,6 @@ var AddBookComponent = /** @class */ (function () {
         this.uploader.onAfterAddingFile = function (file) { file.withCredentials = false; };
         this.uploader.onCompleteItem = function (item, response, status, header) {
             _this.path = response;
-            console.log(_this.path);
             _this.path = _this.path.substring(7, _this.path.length);
             _this.add();
         };
@@ -329,7 +331,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-nav></app-nav>\n<!-- <button (click)='filter()'> Filter</button> -->\n\n<nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\n\t<div class=\"container-fluid\">\n\t<div class=\"row\" >\n\t\t<div class=\"col-lg-2 col-md-12 col-sm-3 col-12\" style=\"margin-top: 10px;margin-bottom: 10px;\">\n\t\t\t <a class=\"navbar-brand\">Filter Books</a>\n\t\t</div>\n\t\t<div class=\"col-lg-2 col-md-6 col-sm-6 col-6\" style=\"margin-top: 10px;margin-bottom: 10px\">\n\t\t  <button type=\"button\" class=\"btn btn-primary\" (click)='filterLowToHigh()'>Low-to-High</button>\t\t\n\t\t</div>\n\t\t<div class=\"col-lg-2 col-md-6 col-sm-6 col-6\" style=\"margin-top: 10px;margin-bottom: 10px\">\n\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)='filterHighToLow()'>High-to-Low</button>\n\t\t</div>\n\t\t<div class=\"col-lg-3  col-md-6 col-sm-12 col-12\" style=\"margin-top: 10px;margin-bottom: 10px\">\n\t\t\t<form class=\"form-inline\" #frm=\"ngForm\" (ngSubmit)=\"filterByCondition(frm)\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-8\">\n\t\t      <select class=\"form-control\" ngModel name=\"condition\" ngModel id=\"condition\" required>\n\t\t      \t<option value=\"\">Select Condition</option>\n\t\t        <option>New</option>\n\t\t        <option>Almost New</option>\n\t\t        <option>Slight Damage</option>\n\t\t        <option>Worn</option>\n\t\t      </select>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-4\">\n\t\t      \t\t\t<button class=\"btn btn-secondary\" id=\"selectCondition\" [disabled]=\"frm.invalid\" type=\"submit\"><i class=\"fas fa-filter\"></i></button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t    </form>\n\t\t</div>\n\t\t<div  class=\"col-lg-2  col-md-6 col-sm-12 col-12\" style=\"margin-top: 10px;margin-bottom: 10px\" >\n\t\t\t <form class=\"form-inline\"  #frm2=\"ngForm\" (ngSubmit)=\"SearchByName(frm2)\">\n\t\t\t \t<div class=\"row\">\n\t\t\t \t\t<div class=\"col-8\">\n\n\t      <input class=\"form-control\"  type=\"text\" ngModel required  name=\"searchBy\" placeholder=\"Search...\" style=\"width: 120%\">\n\t\t\t \t\t</div>\n\t\t\t \t\t<div class=\"col-4\" >\n\t\t\t \t\t\t\n\t      <button class=\"btn btn-secondary\" type=\"submit\" [disabled]=\"frm2.invalid\"><i class=\"fas fa-search\"></i> </button>\n\t\t\t \t\t</div>\n\t\t\t \t</div>\n\t  \n    \t</form>\t\n\t\t</div>\n\t</div>\n</div>\n</nav>\n\n<div class=\"container-fluid\" style=\"margin-top: 2%;\">\n\t\n\t\t<div class=\"row\">\n\n\t\t<div class=\"col-lg-3 col-md-3 col-sm-6\" *ngFor=\"let book of booksListing; let i = index\">\n\t\t\t<div class=\"card mb-3\" style=\"text-decoration-color: black;\">\n\t\t\t\t<a routerLink='/listings/{{book.bId}}' ><h3 class=\"card-header\">{{ book.name }}</h3></a>\n\t\t\t\t<a routerLink='/listings/{{book.bId}}' ><img  style=\"margin:5px;height: 150px; width: 96%; display: block;\" src=\"{{ book.image }}\">\n\t\t\t\t</a>\n\t\t\t\t<ul class=\"list-group list-group-flush\">\n\t\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\t\t<table>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<th style=\"font-color:red;\">Author:-  </th>\n\t\t\t\t\t\t    \t<td>{{ book.authorName }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<th>Condition:- </th>\n\t\t\t\t\t\t    \t<td>{{ book.condition }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<th>Price:- </th>\n\t\t\t\t\t\t    \t<td>{{ book.price }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t<div class=\"card-body\">\n\t\t\t\t\t<button type=\"button\" (click)=\"addToCart($event)\" id=\"{{book.bId}}\" class=\"btn btn-primary\">Buy Now</button>\n\t\t\t\t</div>\n\t\t\t\t\t\t  \n\t\t\t\t<div class=\"card-footer text-muted\">\n\t\t\t\t\tPosted On:- <span style=\"float: right;\">{{ book.createdAt.substring(0,10) }}</span> \n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t\n\t\t<div class=\"col-lg-12\" style=\"align-content: center;\">\t\n\t\t\t<div class=\"alert alert-dismissible alert-light\" *ngIf=\"numberOfBooks == 0\">\n\t\t\t\t  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\n\t\t\t\t  <strong>Currently!</strong> There is no books in the database <a routerLink=\"/signIn\" class=\"alert-link\"> Sign In/Up </a> to add books.\n\t\t\t</div>\n\t\t</div>\n\n\t\t</div>\n\n\n</div>\n"
+module.exports = "<app-nav></app-nav>\n<!-- <button (click)='filter()'> Filter</button> -->\n\n<nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\n\t<div class=\"container-fluid\">\n\t<div class=\"row\" >\n\t\t<div class=\"col-lg-2 col-md-12 col-sm-3 col-12\" style=\"margin-top: 10px;margin-bottom: 10px;\">\n\t\t\t <a class=\"navbar-brand\">Filter Books</a>\n\t\t</div>\n\t\t<div class=\"col-lg-2 col-md-6 col-sm-6 col-6\" style=\"margin-top: 10px;margin-bottom: 10px\">\n\t\t  <button type=\"button\" class=\"btn btn-primary\" (click)='filterLowToHigh()'>Low-to-High</button>\t\t\n\t\t</div>\n\t\t<div class=\"col-lg-2 col-md-6 col-sm-6 col-6\" style=\"margin-top: 10px;margin-bottom: 10px\">\n\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)='filterHighToLow()'>High-to-Low</button>\n\t\t</div>\n\t\t<div class=\"col-lg-3  col-md-6 col-sm-12 col-12\" style=\"margin-top: 10px;margin-bottom: 10px\">\n\t\t\t<form class=\"form-inline\" #frm=\"ngForm\" (ngSubmit)=\"filterByCondition(frm)\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-8\">\n\t\t      <select class=\"form-control\" ngModel name=\"condition\" ngModel id=\"condition\" required>\n\t\t      \t<option value=\"\">Select Condition</option>\n\t\t        <option>New</option>\n\t\t        <option>Almost New</option>\n\t\t        <option>Slight Damage</option>\n\t\t        <option>Worn</option>\n\t\t      </select>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-4\">\n\t\t      \t\t\t<button class=\"btn btn-secondary\" id=\"selectCondition\" [disabled]=\"frm.invalid\" type=\"submit\"><i class=\"fas fa-filter\"></i></button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t    </form>\n\t\t</div>\n\t\t<div  class=\"col-lg-2  col-md-6 col-sm-12 col-12\" style=\"margin-top: 10px;margin-bottom: 10px\" >\n\t\t\t <form class=\"form-inline\"  #frm2=\"ngForm\" (ngSubmit)=\"SearchByName(frm2)\">\n\t\t\t \t<div class=\"row\">\n\t\t\t \t\t<div class=\"col-8\">\n\n\t      <input class=\"form-control\"  type=\"text\" ngModel required  name=\"searchBy\" placeholder=\"Search...\" style=\"width: 120%\">\n\t\t\t \t\t</div>\n\t\t\t \t\t<div class=\"col-4\" >\n\t\t\t \t\t\t\n\t      <button class=\"btn btn-secondary\" type=\"submit\" [disabled]=\"frm2.invalid\"><i class=\"fas fa-search\"></i> </button>\n\t\t\t \t\t</div>\n\t\t\t \t</div>\n\t  \n    \t</form>\t\n\n\t\t</div>\n\t</div>\n</div>\n</nav>\n\n<button class=\"btn btn-primary\" type=\"submit\" (click)=\"clear()\" style=\"float: right\">Clear Filters </button>\n\n<div class=\"container-fluid\" style=\"margin-top: 2%;\">\n\t\n\t\t<div class=\"row\">\n\n\t\t<div class=\"col-lg-3 col-md-3 col-sm-6\" *ngFor=\"let book of booksListing; let i = index\">\n\t\t\t<div class=\"card mb-3\" style=\"text-decoration-color: black;\">\n\t\t\t\t<a routerLink='/listings/{{book.bId}}' ><h3 class=\"card-header\">{{ book.name.toUpperCase()}}</h3></a>\n\t\t\t\t<a routerLink='/listings/{{book.bId}}' ><img  style=\"margin:5px;height: 150px; width: 96%; display: block;\" src=\"{{ book.image }}\">\n\t\t\t\t</a>\n\t\t\t\t<ul class=\"list-group list-group-flush\">\n\t\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\t\t<table>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<th style=\"font-color:red;\">Author:-  </th>\n\t\t\t\t\t\t    \t<td>{{ book.authorName.toUpperCase() }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<th>Condition:- </th>\n\t\t\t\t\t\t    \t<td>{{ book.condition }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<th>Price:- </th>\n\t\t\t\t\t\t    \t<td>{{ book.price }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t<div class=\"card-body\">\n\t\t\t\t\t<button type=\"button\" (click)=\"addToCart($event)\" id=\"{{book.bId}}\" class=\"btn btn-primary\">Buy Now</button>\n\t\t\t\t</div>\n\t\t\t\t\t\t  \n\t\t\t\t<div class=\"card-footer text-muted\">\n\t\t\t\t\tPosted On:- <span style=\"float: right;\">{{ book.createdAt.substring(8,10) }} {{ book.createdAt.substring(4,8) }} {{ book.createdAt.substring(0,4) }}</span> \n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t\n\t\t<div class=\"col-lg-12\" style=\"align-content: center;\">\t\n\t\t\t<div class=\"alert alert-dismissible alert-light\" *ngIf=\"numberOfBooks == 0\">\n\t\t\t\t  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\n\t\t\t\t  <strong>Currently!</strong> There is no books in the database <a routerLink=\"/signIn\" class=\"alert-link\"> Sign In/Up </a> to add books.\n\t\t\t</div>\n\t\t</div>\n\n\t\t</div>\n\n\n</div>\n"
 
 /***/ }),
 
@@ -362,10 +364,6 @@ var BodyComponent = /** @class */ (function () {
     function BodyComponent(router, dataservice) {
         this.router = router;
         this.dataservice = dataservice;
-        this.year = new Date().getFullYear().toString();
-        this.month = (new Date().getMonth() < 10 ? '0' : '') + new Date().getMonth();
-        this.day = (new Date().getDate() < 10 ? '0' : '') + new Date().getDate();
-        this.date = this.year + this.month + this.day;
     }
     BodyComponent.prototype.filterLowToHigh = function () {
         var _this = this;
@@ -391,6 +389,13 @@ var BodyComponent = /** @class */ (function () {
     BodyComponent.prototype.SearchByName = function (frm) {
         var _this = this;
         this.dataservice.getAllSearchByName(frm.value).subscribe(function (books) {
+            _this.booksListing = books;
+            _this.numberOfBooks = _this.booksListing.length;
+        });
+    };
+    BodyComponent.prototype.clear = function () {
+        var _this = this;
+        this.dataservice.getAllBooks().subscribe(function (books) {
             _this.booksListing = books;
             _this.numberOfBooks = _this.booksListing.length;
         });
@@ -455,7 +460,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-nav></app-nav>\n\n<div class=\"container-fluid\" style=\"margin-top: 2%\">\n\t\n\t\t<div class=\"row\">\n\n\t\t<div class=\"col-lg-3 col-md-3 col-sm-6\" *ngIf=\"book\">\n\t\t\t<div class=\"card mb-3\">\n\t\t\t\t<h3 class=\"card-header\">{{ book.name }}</h3>\n\t\t\t\t<img  style=\"margin:5px;height: 150px; width: 96%; display: block;\" src=\"{{ book.image }}\">\n\t\t\t\t<ul class=\"list-group list-group-flush\">\n\t\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\t\t<table>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Author:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.authorName }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Condition:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.condition }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td>Price:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.price }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t\n\t\t\t\t<div class=\"card-body\">\n\t\t\t\t\t<button type=\"button\" (click)=\"addToCart($event)\" id=\"{{book.bId}}\" class=\"btn btn-primary\">Buy Now</button>\n\t\t\t\t\t<a routerLink='/message/{{book.bId}}/{{book.userUId}}' class=\"card-link\">Send Message To Seller</a>\n\t\t\t\t</div>\n\t\t\t\t\t\t  \n\t\t\t\t<div class=\"card-footer text-muted\">\n\t\t\t\t\tPosted On:- <span style=\"float: right;\">{{ book.createdAt.substring(0,10) }}</span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t\n\t\t<div class=\"col-lg-12\" style=\"align-content: center;\">\t\n\t\t\t<div class=\"alert alert-dismissible alert-light\" *ngIf=\"numberOfBooks == 0\">\n\t\t\t\t  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\n\t\t\t\t  <strong>Available!</strong> books are shown here. <a routerLink=\"/signIn\" class=\"alert-link\"> Sign In/Up </a> to buy/sell books.\n\t\t\t</div>\n\t\t</div>\n\n\t\t</div>\n\n\n</div>"
+module.exports = "<app-nav></app-nav>\n\n<div class=\"container-fluid\" style=\"margin-top: 2%\">\n\t\n\t\t<div class=\"row\">\n\n\t\t<div class=\"col-lg-3 col-md-3 col-sm-6\" *ngIf=\"book\">\n\t\t\t<div class=\"card mb-3\">\n\t\t\t\t<h3 class=\"card-header\">{{ book.name.toUpperCase() }}</h3>\n\t\t\t\t<img  style=\"margin:5px;height: 150px; width: 96%; display: block;\" src=\"{{ book.image }}\">\n\t\t\t\t<ul class=\"list-group list-group-flush\">\n\t\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\t\t<table>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Author:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.authorName.toUpperCase() }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Condition:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.condition }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td>Price:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.price }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t\n\t\t\t\t<div class=\"card-body\">\n\t\t\t\t\t<button type=\"button\" (click)=\"addToCart($event)\" id=\"{{book.bId}}\" class=\"btn btn-primary\">Buy Now</button>\n\t\t\t\t\t<a routerLink='/message/{{book.bId}}/{{book.userUId}}' class=\"card-link\">Send Message To Seller</a>\n\t\t\t\t</div>\n\t\t\t\t\t\t  \n\t\t\t\t<div class=\"card-footer text-muted\">\n\t\t\t\t\tPosted On:- <span style=\"float: right;\">{{ book.createdAt.substring(8,10) }} {{ book.createdAt.substring(4,8) }} {{ book.createdAt.substring(0,4) }}</span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t\n\t\t<div class=\"col-lg-12\" style=\"align-content: center;\">\t\n\t\t\t<div class=\"alert alert-dismissible alert-light\" *ngIf=\"numberOfBooks == 0\">\n\t\t\t\t  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\n\t\t\t\t  <strong>Available!</strong> books are shown here. <a routerLink=\"/signIn\" class=\"alert-link\"> Sign In/Up </a> to buy/sell books.\n\t\t\t</div>\n\t\t</div>\n\n\t\t</div>\n\n\n</div>"
 
 /***/ }),
 
@@ -566,48 +571,48 @@ var DataService = /** @class */ (function () {
         this.cartId = { Id: "" };
     }
     DataService.prototype.addUser = function (user) {
-        return this.http.post('api/users', user, httpOptions);
+        return this.http.post('http://localhost:3333/api/users', user, httpOptions);
     };
     DataService.prototype.signIn = function (user) {
-        return this.http.post('api/users/signIn', user, httpOptions);
+        return this.http.post('http://localhost:3333/api/users/signIn', user, httpOptions);
     };
     DataService.prototype.addBook = function (book) {
-        return this.http.post('api/books', book, httpOptions);
+        return this.http.post('http://localhost:3333/api/books', book, httpOptions);
     };
     DataService.prototype.getAllBooks = function () {
-        return this.http.get('api/books');
+        return this.http.get('http://localhost:3333/api/books');
     };
     DataService.prototype.getAllFilterByLowToHigh = function () {
-        return this.http.get('api/books/filterLowToHigh');
+        return this.http.get('http://localhost:3333/api/books/filterLowToHigh');
     };
     DataService.prototype.getAllFilterByHighToLow = function () {
-        return this.http.get('api/books/filterHighToLow');
+        return this.http.get('http://localhost:3333/api/books/filterHighToLow');
     };
     DataService.prototype.getAllFilterByCondition = function (condition) {
-        return this.http.post('api/books/filterCondition', condition, httpOptions);
+        return this.http.post('http://localhost:3333/api/books/filterCondition', condition, httpOptions);
     };
     DataService.prototype.getAllSearchByName = function (name) {
         console.log(name);
-        return this.http.post('api/books/searchByName', name, httpOptions);
+        return this.http.post('http://localhost:3333/api/books/searchByName', name, httpOptions);
     };
     DataService.prototype.getBook = function (id) {
-        return this.http.post('api/books/book', id, httpOptions);
+        return this.http.post('http://localhost:3333/api/books/book', id, httpOptions);
     };
     DataService.prototype.sentMessage = function (message) {
         console.log(message);
-        return this.http.post('api/message', message, httpOptions);
+        return this.http.post('http://localhost:3333/api/message', message, httpOptions);
     };
     DataService.prototype.addWishList = function (wishList) {
-        return this.http.post('api/carts', wishList, httpOptions);
+        return this.http.post('http://localhost:3333/api/carts', wishList, httpOptions);
     };
     DataService.prototype.getUserCart = function (id) {
-        return this.http.post('api/carts/getCart', id, httpOptions);
+        return this.http.post('http://localhost:3333/api/carts/getCart', id, httpOptions);
     };
     DataService.prototype.getUserBook = function (id) {
-        return this.http.post('api/books/userBooks', id, httpOptions);
+        return this.http.post('http://localhost:3333/api/books/userBooks', id, httpOptions);
     };
     DataService.prototype.deleteCartItem = function (bookId) {
-        var url = 'api/carts/' + ("" + bookId);
+        var url = 'http://localhost:3333/api/carts/' + ("" + bookId);
         return this.http.delete(url);
     };
     DataService = __decorate([
@@ -905,7 +910,7 @@ module.exports = ".btnBook{\r\n\tmargin-left: 10;\r\n}"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-nav></app-nav>\n<div class=\"row\">\n<button type=\"button\" routerLink='/addListing' class=\" btn btn-primary \" style=\"margin-top:1%;float: right;\">Click To Add Your Books</button>\n</div>\n<div align=\"center\">\n<h2>\n <p class=\"text-justify text-center\"> Books Listed By You</p>\n</h2>\n</div>\n<div class=\"container-fluid\" style=\"margin-top: 2%\">\n\t\n\t\t<div class=\"row\">\n\n\t\t<div class=\"col-lg-3 col-md-3 col-sm-6\" *ngFor=\"let book of books; let i = index\">\n\t\t\t<div class=\"card mb-3\">\n\t\t\t\t<h3 class=\"card-header\">{{ book.name }}</h3>\n\t\t\t\t<img routerLink='/listings/{{book.bId}}' style=\"margin:5px;height: 150px; width: 96%; display: block;\" src=\"{{ book.image }}\">\n\t\t\t\t<ul class=\"list-group list-group-flush\">\n\t\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\t\t<table>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t    \t<td>Book Id:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.bId }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Author:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.authorName }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Condition:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.condition }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td>Price:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.price }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t\n\t\t\t\t\t\t  \n\t\t\t\t<div class=\"card-footer text-muted\">\n\t\t\t\t\tPosted On:- <span style=\"float: right;\">{{ book.createdAt.substring(0,10) }}</span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t\n\t\t<div class=\"col-lg-12\" style=\"align-content: center;\">\t\n\t\t\t<div class=\"alert alert-dismissible alert-light\" *ngIf=\"numberOfBooks == 0\">\n\t\t\t\t  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\n\t\t\t\t  <strong>Currently!</strong> There is no books in the database <a routerLink=\"/signIn\" class=\"alert-link\"> Sign In </a> to add books.\n\t\t\t</div>\n\t\t</div>\n\n\t\t</div>\n\n\n</div>"
+module.exports = "<app-nav></app-nav>\n<div class=\"row\">\n<button type=\"button\" routerLink='/addListing' class=\" btn btn-primary \" style=\"margin-top:1%;float: right;\">Click To Add Your Books</button>\n</div>\n<div align=\"center\">\n<h2>\n <p class=\"text-justify text-center\"> Books Listed By You</p>\n</h2>\n</div>\n<div class=\"container-fluid\" style=\"margin-top: 2%\">\n\t\n\t\t<div class=\"row\">\n\n\t\t<div class=\"col-lg-3 col-md-3 col-sm-6\" *ngFor=\"let book of books; let i = index\">\n\t\t\t<div class=\"card mb-3\">\n\t\t\t\t<h3 class=\"card-header\">{{ book.name.toUpperCase() }}</h3>\n\t\t\t\t<img routerLink='/listings/{{book.bId}}' style=\"margin:5px;height: 150px; width: 96%; display: block;\" src=\"{{ book.image }}\">\n\t\t\t\t<ul class=\"list-group list-group-flush\">\n\t\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\t\t<table>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t    \t<td>Book Id:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.bId }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Author:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.authorName.toUpperCase() }}</td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t    \t<td>Condition:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.condition }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td>Price:- </td>\n\t\t\t\t\t\t    \t<td>{{ book.price }} </td>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t\n\t\t\t\t\t\t  \n\t\t\t\t<div class=\"card-footer text-muted\">\n\t\t\t\t\tPosted On:- <span style=\"float: right;\">{{ book.createdAt.substring(8,10) }} {{ book.createdAt.substring(4,8) }} {{ book.createdAt.substring(0,4) }}</span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t\n\t\t<div class=\"col-lg-12\" style=\"align-content: center;\">\t\n\t\t\t<div class=\"alert alert-dismissible alert-light\" *ngIf=\"numberOfBooks == 0\">\n\t\t\t\t  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\n\t\t\t\t  <strong>Currently!</strong> There is no books in the database <a routerLink=\"/signIn\" class=\"alert-link\"> Sign In </a> to add books.\n\t\t\t</div>\n\t\t</div>\n\n\t\t</div>\n\n\n</div>"
 
 /***/ }),
 

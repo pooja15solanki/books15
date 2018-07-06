@@ -124,7 +124,7 @@ route.post('/filterCondition',(req,res,next)=>{
 route.post('/searchByName',(req,res,next)=>{
 	//console.log(req.body)
 	Book.findAll({where:{
-		[Op.or]: [{name: req.body.searchBy}, {authorName: req.body.searchBy}]
+		[Op.or]: [{name: req.body.searchBy.toLowerCase()}, {authorName: req.body.searchBy.toLowerCase()}]
 	}
 	})
 	.then((books)=>{
