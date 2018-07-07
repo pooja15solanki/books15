@@ -9,7 +9,7 @@
 Base Url : https://books15.herokuapp.com/
 
 Database configurations are in file db.js
-Database is used as sqlite 
+Database is used as clearDB
 
 Run:
 Step 1 : Go to https://books15.herokuapp.com/
