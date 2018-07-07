@@ -412,7 +412,7 @@ var BodyComponent = /** @class */ (function () {
         }
         else {
             var wishItem = {
-                bookBId: bookId,
+                bookBId:  this.booksListing[bookId].bId,
                 userUId: JSON.parse(localStorage.getItem('user')).uId
             };
             console.log(wishItem);
